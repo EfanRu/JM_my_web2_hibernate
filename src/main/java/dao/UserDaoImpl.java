@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             sess.beginTransaction();
-            result = sess.createQuery("FROM users").list();
+            result = sess.createQuery("FROM User", User.class).list();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
@@ -45,6 +45,7 @@ public class UserDaoImpl implements UserDao {
             sess.getTransaction().commit();
             return true;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             sess.getTransaction().rollback();
         } finally {
             sess.close();
@@ -59,7 +60,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             sess.beginTransaction();
-            sess.createQuery("DELETE FROM users WHERE id=:id")
+            sess.createQuery("DELETE FROM User WHERE id=:id")
                 .setParameter("id", Long.parseLong(id))
                 .executeUpdate();
             sess.getTransaction().commit();
@@ -68,7 +69,7 @@ public class UserDaoImpl implements UserDao {
             sess.getTransaction().rollback();
             e.printStackTrace();
         } finally {
-            sess.getTransaction().rollback();
+            sess.close();
         }
         return false;
     }
@@ -80,7 +81,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             sess.beginTransaction();
-            sess.createQuery("UPDATE users SET first_name = :firstName, last_name = lastName, phone_number = phoneNumber where id=:id")
+            sess.createQuery("UPDATE User SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber where id=:id")
                     .setParameter("id", Long.parseLong(id))
                     .setParameter("firstName", firstName)
                     .setParameter("lastName", lastName)
@@ -89,6 +90,7 @@ public class UserDaoImpl implements UserDao {
             sess.getTransaction().commit();
             return true;
         } catch (RuntimeException e) {
+            e.printStackTrace();
             sess.getTransaction().rollback();
         } finally {
             sess.close();
@@ -100,7 +102,7 @@ public class UserDaoImpl implements UserDao {
         if (sess != null) {
             try {
                 sess.beginTransaction();
-                sess.createQuery("CREATE TABLE if NOT EXISTS users (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, primary key (id))")
+                sess.createQuery("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, primary key (id))")
                         .executeUpdate();
                 sess.getTransaction().commit();
             } catch (RuntimeException e) {

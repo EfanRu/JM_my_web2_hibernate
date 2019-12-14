@@ -18,7 +18,7 @@
 
   <p>All users in database:<br>
 
-      <form action="/all" method="get">
+      <form action="/" method="get">
           <table>
               <tr>
                   <td>id</td>

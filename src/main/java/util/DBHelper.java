@@ -36,7 +36,7 @@ public class DBHelper {
 
         conf.addAnnotatedClass(User.class);
 
-        conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         conf.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
         sb.append("jdbc:mysql://")
             .append(host)

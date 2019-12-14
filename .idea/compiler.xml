@@ -6,7 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="JM_my_web2_hibernate" />
+        <module name="my_web_1" />
+        <module name="JM_my_web2_hibernate_rework" />
       </profile>
     </annotationProcessing>
   </component>
