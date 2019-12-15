@@ -1,11 +1,8 @@
 package service;
 
-import dao.UserDaoImpl;
 import model.User;
 
 import java.util.List;
-
-import static util.DBHelper.getMysqlConnection;
 
 public interface UserService {
     public List<User> getAllUsers();

@@ -1,18 +1,17 @@
 package service;
 
-import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
 import org.hibernate.SessionFactory;
 import util.DBHelper;
+import util.UserDaoFactory;
 
 import java.util.List;
-
-import static util.DBHelper.getMysqlConnection;
 
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl userService;
     private SessionFactory sessionFactory;
+    private UserDaoFactory userDaoFactory = new UserDaoFactory();
 
     private UserServiceImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private UserServiceImpl() {}
 
     public List<User> getAllUsers() {
-        return new UserDaoImpl(sessionFactory.openSession()).getAllUsers();
+        return userDaoFactory.getUserDao("Type1").getAllUsers();
     }
 
     public boolean addUser(User u) {
