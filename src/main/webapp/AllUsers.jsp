@@ -1,10 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="model.User" %>
-<%@ page import="service.UserServiceImpl" %>
-<%@ page import="java.util.List" %>
-<%@ page import="dao.UserDaoImpl" %>
-<%@ page import="servlets.AllUsersServlet" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -18,7 +12,7 @@
 
   <p>All users in database:<br>
 
-      <form action="/" method="get">
+      <form action="/all" method="get">
           <table>
               <tr>
                   <td>id</td>

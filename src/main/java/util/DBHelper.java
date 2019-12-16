@@ -15,6 +15,12 @@ public class DBHelper {
     private static PropertyReader propertyReader = new PropertyReader();
     private static SessionFactory sessionFactory;
     private static DBHelper instance;
+    private static String host = propertyReader.getProperty("db.host", "DBproperty.property");
+    private static String port = propertyReader.getProperty("db.port", "DBproperty.property");
+    private static String name = propertyReader.getProperty("db.name", "DBproperty.property");
+    private static String login = propertyReader.getProperty("db.login", "DBproperty.property");
+    private static String password = propertyReader.getProperty("db.password", "DBproperty.property");
+
 
     private DBHelper() {}
 
@@ -41,11 +47,6 @@ public class DBHelper {
     }
 
     public static Configuration getConfiguration() {
-        String host = propertyReader.getProperty("db.host", "DBproperty.property");
-        String port = propertyReader.getProperty("db.port", "DBproperty.property");
-        String name = propertyReader.getProperty("db.name", "DBproperty.property");
-        String login = propertyReader.getProperty("db.login", "DBproperty.property");
-        String password = propertyReader.getProperty("db.password", "DBproperty.property");
         Configuration conf = new Configuration();
         StringBuilder sb = new StringBuilder();
 
@@ -67,13 +68,7 @@ public class DBHelper {
         return conf;
     }
 
-    public static Connection getMysqlConnection() {
-        String host = propertyReader.getProperty("db.host", "DBproperty.property");
-        String port = propertyReader.getProperty("db.port", "DBproperty.property");
-        String name = propertyReader.getProperty("db.name", "DBproperty.property");
-        String login = propertyReader.getProperty("db.login", "DBproperty.property");
-        String password = propertyReader.getProperty("db.password", "DBproperty.property");
-
+    public static Connection getConnection() {
         try {
             DriverManager.registerDriver(new Driver());
             StringBuilder url = new StringBuilder();

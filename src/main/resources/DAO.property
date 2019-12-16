@@ -1,2 +1,2 @@
-DaoType1 = Type1
-DaoType2 = Type2
+DaoType1 = Hibernate
+DaoType2 = JDBC
