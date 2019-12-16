@@ -24,7 +24,7 @@ public class DBHelper {
 
     private DBHelper() {}
 
-    public DBHelper getInstance() {
+    public static DBHelper getInstance() {
         if (instance == null) {
             instance = new DBHelper();
         }

@@ -1,5 +1,6 @@
 package service;
 
+import dao.UserDao;
 import dao.UserDaoImplHib;
 import model.User;
 import org.hibernate.SessionFactory;
@@ -11,8 +12,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl userService;
     private SessionFactory sessionFactory;
-    private static UserDaoFactory userDaoFactory;
-    private static String userDaoType;
+    private UserDaoFactory userDaoFactory = UserDaoFactory.getInstance(DBHelper.getInstance().getSessionFactory(), DBHelper.getInstance().getConnection());
+    private String userDaoType = "Hibernate";
 
     private UserServiceImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService {
     public static UserServiceImpl getInstance() {
         if (userService == null) {
             userService = new UserServiceImpl(DBHelper.getSessionFactory());
-            userDaoFactory = new UserDaoFactory(DBHelper.getSessionFactory(), DBHelper.getConnection());
-            userDaoType = "Hibernate";
+//            userDaoFactory = new UserDaoFactory(DBHelper.getSessionFactory(), DBHelper.getConnection());
+//            userDaoType = "Hibernate";
 //            userDaoType = "JDBC";
         }
         return userService;
