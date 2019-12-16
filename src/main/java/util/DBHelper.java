@@ -41,11 +41,11 @@ public class DBHelper {
     }
 
     public static Configuration getConfiguration() {
-        String host = propertyReader.getProperty("db.host");
-        String port = propertyReader.getProperty("db.port");
-        String name = propertyReader.getProperty("db.name");
-        String login = propertyReader.getProperty("db.login");
-        String password = propertyReader.getProperty("db.password");
+        String host = propertyReader.getProperty("db.host", "DBproperty.property");
+        String port = propertyReader.getProperty("db.port", "DBproperty.property");
+        String name = propertyReader.getProperty("db.name", "DBproperty.property");
+        String login = propertyReader.getProperty("db.login", "DBproperty.property");
+        String password = propertyReader.getProperty("db.password", "DBproperty.property");
         Configuration conf = new Configuration();
         StringBuilder sb = new StringBuilder();
 
@@ -68,11 +68,11 @@ public class DBHelper {
     }
 
     public static Connection getMysqlConnection() {
-        String host = propertyReader.getProperty("db.host");
-        String port = propertyReader.getProperty("db.port");
-        String name = propertyReader.getProperty("db.name");
-        String login = propertyReader.getProperty("db.login");
-        String password = propertyReader.getProperty("db.password");
+        String host = propertyReader.getProperty("db.host", "DBproperty.property");
+        String port = propertyReader.getProperty("db.port", "DBproperty.property");
+        String name = propertyReader.getProperty("db.name", "DBproperty.property");
+        String login = propertyReader.getProperty("db.login", "DBproperty.property");
+        String password = propertyReader.getProperty("db.password", "DBproperty.property");
 
         try {
             DriverManager.registerDriver(new Driver());

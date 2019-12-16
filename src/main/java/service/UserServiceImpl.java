@@ -11,7 +11,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl userService;
     private SessionFactory sessionFactory;
-    private UserDaoFactory userDaoFactory = new UserDaoFactory();
+    private static UserDaoFactory userDaoFactory;
 
     private UserServiceImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     public static UserServiceImpl getInstance() {
         if (userService == null) {
             userService = new UserServiceImpl(DBHelper.getSessionFactory());
+            userDaoFactory = new UserDaoFactory(DBHelper.getSessionFactory());
         }
         return userService;
     }
