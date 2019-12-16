@@ -15,11 +15,11 @@ public class DBHelper {
     private static PropertyReader propertyReader = new PropertyReader();
     private static SessionFactory sessionFactory;
     private static DBHelper instance;
-    private static String host = propertyReader.getProperty("db.host", "DBproperty.property");
-    private static String port = propertyReader.getProperty("db.port", "DBproperty.property");
-    private static String name = propertyReader.getProperty("db.name", "DBproperty.property");
-    private static String login = propertyReader.getProperty("db.login", "DBproperty.property");
-    private static String password = propertyReader.getProperty("db.password", "DBproperty.property");
+    private static String host = propertyReader.getProperty("db.host", "DB.property");
+    private static String port = propertyReader.getProperty("db.port", "DB.property");
+    private static String name = propertyReader.getProperty("db.name", "DB.property");
+    private static String login = propertyReader.getProperty("db.login", "DB.property");
+    private static String password = propertyReader.getProperty("db.password", "DB.property");
 
 
     private DBHelper() {}

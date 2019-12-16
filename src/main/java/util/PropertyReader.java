@@ -2,14 +2,18 @@ package util;
 
 import java.io.*;
 import java.util.Objects;
+import java.util.Properties;
 
 public class PropertyReader {
+    private Properties properties = new Properties();
+    FileInputStream fis;
+
     public String getProperty(String property, String propertyFileName) {
+        //Rewrite
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(
                         Objects.requireNonNull(getClass()
                                 .getClassLoader()
-//                                .getResourceAsStream("DBproperty.property"))))) {
                                 .getResourceAsStream(propertyFileName))))) {
             while (br.ready()) {
                 String[] arr = br.readLine().split(" = ");

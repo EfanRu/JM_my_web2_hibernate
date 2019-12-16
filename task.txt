@@ -9,6 +9,17 @@ Task # 3:
 	- 3) UserDaoFactory - фабрика которая возвращает реализацию DAO на основе файла .property.
 	+ 4) DBHelper - синглтон, у него есть два метода getConnection и getConfiguration, которые отдают Connection для jdbc dao и Configuration для hibernate dao соответственно.
 	+ 5) Сервис - синглтон.
+Task # 4
+    1) Коннекшн в дао JDBC;
+    2) В дао передавать фабрику сессий хиб;
+    3) Ловить эксепшн при закрытии сессии;
+    4) Шаблонный метода - фабричный метод;
+    5) Реализовать свойства через Property class;
+    6) DBHelper исправить;
+    7) JSP с маленькой буквы;
+    8) Название папки в ед. экз;
+    9)"http://localhost:8080/all" - зачем полный путь?
+    10) Селать 1 проперти.
 Links:
 	JSP: http://java-course.ru/student/book1/jsp/
 	JDBC: https://habr.com/ru/post/101342/

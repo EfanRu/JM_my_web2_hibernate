@@ -16,11 +16,6 @@ public class AddUserServlet extends HttpServlet {
     private UserService userService = UserServiceImpl.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("http://localhost:8080/all");
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
@@ -31,6 +26,6 @@ public class AddUserServlet extends HttpServlet {
         } else {
             resp.setStatus(403);
         }
-        doGet(req, resp);
+        resp.sendRedirect("http://localhost:8080/all");
     }
 }

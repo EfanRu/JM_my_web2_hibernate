@@ -6,6 +6,7 @@ import dao.UserDaoImplJDBC;
 import org.hibernate.SessionFactory;
 
 import java.sql.Connection;
+import java.util.Properties;
 
 public class UserDaoFactory {
     private static UserDaoFactory userDaoFactory;
