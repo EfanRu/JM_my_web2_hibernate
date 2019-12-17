@@ -11,9 +11,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl userService;
-    private SessionFactory sessionFactory;
     private UserDaoFactory userDaoFactory = UserDaoFactory.getInstance();
-    private String userDaoType = "Hibernate";
 
     private UserServiceImpl() {}
 
@@ -36,7 +34,7 @@ public class UserServiceImpl implements UserService {
         return userDaoFactory.getUserDao().delUser(id);
     }
 
-    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber) {
-        return userDaoFactory.getUserDao().updateUser(id, firstName, lastName, phoneNumber);
+    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role) {
+        return userDaoFactory.getUserDao().updateUser(id, firstName, lastName, phoneNumber, role);
     }
 }

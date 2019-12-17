@@ -17,20 +17,24 @@ public class User {
     private String lastName;
     @Column(name = "phone_number")
     private Long phoneNumber;
+    @Column(name = "role")
+    private String role;
 
     public User() {}
 
-    public User(Long id, String firstName, String lastName, Long phoneNumber) {
+    public User(Long id, String firstName, String lastName, Long phoneNumber, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.id = id;
+        this.role = role;
     }
 
-    public User(String firstName, String lastName, Long phoneNumber) {
+    public User(String firstName, String lastName, Long phoneNumber, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.role = role;
         this.id = null;
     }
 
@@ -64,5 +68,13 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -29,7 +29,8 @@ public class UserDaoImplJDBC implements UserDao {
                 result.add(new User(rs.getLong(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getLong(4)));
+                        rs.getLong(4),
+                        rs.getString(5)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +46,7 @@ public class UserDaoImplJDBC implements UserDao {
     }
 
     public boolean addUser(User u) {
-        String sql = "INSERT INTO user VALUES(null, ?, ?, ?)";
+        String sql = "INSERT INTO user VALUES(null, ?, ?, ?, ?)";
         con = DBHelper.getInstance().getConnection();
 
         if (con == null) {
@@ -57,6 +58,7 @@ public class UserDaoImplJDBC implements UserDao {
             pstmt.setString(1, u.getFirstName());
             pstmt.setString(2, u.getLastName());
             pstmt.setLong(3, u.getPhoneNumber());
+            pstmt.setString(4, u.getRole());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -108,8 +110,8 @@ public class UserDaoImplJDBC implements UserDao {
         }
     }
 
-    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber) {
-        String sql = "UPDATE user SET first_name = ?, last_name = ?, phone_number = ? where id=?";
+    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role) {
+        String sql = "UPDATE user SET first_name = ?, last_name = ?, phone_number = ?, role = ? where id=?";
         con = DBHelper.getInstance().getConnection();
 
         if (con == null) {
@@ -122,6 +124,7 @@ public class UserDaoImplJDBC implements UserDao {
             pstmt.setString(2, lastName);
             pstmt.setLong(3, Long.parseLong(phoneNumber));
             pstmt.setLong(4, Long.parseLong(id));
+            pstmt.setString(5, role);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -145,7 +148,7 @@ public class UserDaoImplJDBC implements UserDao {
     public void createTable() {
         con = DBHelper.getInstance().getConnection();
         try (Statement stmt = con.createStatement()) {
-            stmt.execute("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, primary key (id))");
+            stmt.execute("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128) primary key (id))");
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
