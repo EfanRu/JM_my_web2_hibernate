@@ -27,7 +27,11 @@ public class UserDaoImplHib implements UserDao {
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
-            sess.close();
+            try {
+                sess.close();
+            } catch (RuntimeException ex) {
+                ex.printStackTrace();
+            }
         }
         return result;
     }
@@ -48,7 +52,11 @@ public class UserDaoImplHib implements UserDao {
             e.printStackTrace();
             sess.getTransaction().rollback();
         } finally {
-            sess.close();
+            try {
+                sess.close();
+            } catch (RuntimeException ex) {
+                ex.printStackTrace();
+            }
         }
         return false;
     }
@@ -69,7 +77,11 @@ public class UserDaoImplHib implements UserDao {
             sess.getTransaction().rollback();
             e.printStackTrace();
         } finally {
-            sess.close();
+            try {
+                sess.close();
+            } catch (RuntimeException ex) {
+                ex.printStackTrace();
+            }
         }
         return false;
     }
@@ -93,7 +105,11 @@ public class UserDaoImplHib implements UserDao {
             e.printStackTrace();
             sess.getTransaction().rollback();
         } finally {
-            sess.close();
+            try {
+                sess.close();
+            } catch (RuntimeException ex) {
+                ex.printStackTrace();
+            }
         }
         return false;
     }
@@ -109,7 +125,11 @@ public class UserDaoImplHib implements UserDao {
                 sess.getTransaction().rollback();
                 e.printStackTrace();
             } finally {
-                sess.close();
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -125,7 +145,11 @@ public class UserDaoImplHib implements UserDao {
                 sess.getTransaction().rollback();
                 e.printStackTrace();
             } finally {
-                sess.close();
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }

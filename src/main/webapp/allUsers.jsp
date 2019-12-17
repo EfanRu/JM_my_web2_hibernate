@@ -12,7 +12,7 @@
 
   <p>All users in database:<br>
 
-      <form action="/" method="get">
+      <form action="/all" method="get">
           <table>
               <tr>
                   <td>id</td>

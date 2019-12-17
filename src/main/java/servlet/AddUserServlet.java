@@ -1,4 +1,4 @@
-package servlets;
+package servlet;
 
 import service.UserService;
 import service.UserServiceImpl;
@@ -26,6 +26,6 @@ public class AddUserServlet extends HttpServlet {
         } else {
             resp.setStatus(403);
         }
-        resp.sendRedirect("http://localhost:8080/all");
+        resp.sendRedirect("/all");
     }
 }

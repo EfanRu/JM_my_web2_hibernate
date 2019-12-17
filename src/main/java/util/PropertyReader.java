@@ -5,25 +5,31 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class PropertyReader {
-    private Properties properties = new Properties();
-    FileInputStream fis;
+    private Properties properties;
+    private InputStreamReader in;
 
-    public String getProperty(String property, String propertyFileName) {
-        //Rewrite
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                        Objects.requireNonNull(getClass()
-                                .getClassLoader()
-                                .getResourceAsStream(propertyFileName))))) {
-            while (br.ready()) {
-                String[] arr = br.readLine().split(" = ");
-                if (arr[0].equals(property)) {
-                    return arr[1];
-                }
-            }
+
+    public PropertyReader(String propertyFileName) {
+        properties = new Properties();
+        in = new InputStreamReader(Objects.requireNonNull(getClass()
+                .getClassLoader()
+                .getResourceAsStream(propertyFileName)));
+
+        try {
+            properties.load(in);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Exception in property file");
+        } finally {
+            try {
+                in.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
-        return "No such property in file";
+    }
+
+    public String getProperty(String property) {
+        return properties.getProperty(property);
     }
 }

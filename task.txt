@@ -10,16 +10,7 @@ Task # 3:
 	+ 4) DBHelper - синглтон, у него есть два метода getConnection и getConfiguration, которые отдают Connection для jdbc dao и Configuration для hibernate dao соответственно.
 	+ 5) Сервис - синглтон.
 Task # 4
-    1) Коннекшн в дао JDBC;
-    2) В дао передавать фабрику сессий хиб;
-    3) Ловить эксепшн при закрытии сессии;
-    4) Шаблонный метода - фабричный метод;
-    5) Реализовать свойства через Property class;
-    6) DBHelper исправить;
-    7) JSP с маленькой буквы;
-    8) Название папки в ед. экз;
-    9)"http://localhost:8080/all" - зачем полный путь?
-    10) Селать 1 проперти.
+
 Links:
 	JSP: http://java-course.ru/student/book1/jsp/
 	JDBC: https://habr.com/ru/post/101342/
@@ -51,26 +42,38 @@ Reworking list 2:
     + 7)Убрать конфигурацию с Hibernate
 Reworking list 3:
     + 1)Переменная не может называться просто "c" - UserDaoimpl;
-    -/+ (можно и короче) 2)Во всех методах должны быть транзакции. Транзакции должны работать в случае возникновения ошибок и откатывать изменения, внесённые в базу;
+    + (можно и короче) 2)Во всех методах должны быть транзакции. Транзакции должны работать в случае возникновения ошибок и откатывать изменения, внесённые в базу;
     + 3)Вот таких строчек быть не должно. UserDao должен быть полем в сервисе, и ни в коем случае он не должен создаваться всякий раз, когда сервис принимает запрос
       src/main/java/service/UserServiceImpl.java (Line 13);
     + 4)Не должно быть пробелов в названии параметров
-      src/main/java/servlets/AddUserServlet.java (Lines 17-19);
+      src/main/java/servlet/AddUserServlet.java (Lines 17-19);
     + 5)То же самое: сервис должен быть полем севрелета, а не создаваться новый на каждый запрос. подумай, сколько этих сервисов будет создано, если мы добавим 10к пользователей
-      src/main/java/servlets/AddUserServlet.java (Line 21);
+      src/main/java/servlet/AddUserServlet.java (Line 21);
     + 6)То же самое. для всех сервлетов
-      src/main/java/servlets/AllUsersServlet.java (Line 18);
+      src/main/java/servlet/AllUsersServlet.java (Line 18);
     ?+ 7)Нельзя отдавать страницу после отправки post запроса. страницу может отдавать только get запрос. после post запроса надо делать редирект get
-      src/main/java/servlets/AddUserServlet.java (Line 26);
+      src/main/java/servlet/AddUserServlet.java (Line 26);
     ?+ 8)То же самое - тут нужен редирект
-      src/main/java/servlets/DeleteUserServlet.java (Line 23)
-      src/main/java/servlets/EditUserServlet.java (Line 32);
+      src/main/java/servlet/DeleteUserServlet.java (Line 23)
+      src/main/java/servlet/EditUserServlet.java (Line 32);
     + 9)Тут вообще жестко захардкожено всё. у тебя вообще не правильная структура проекта. посмотри, как должна выглядеть структура maven проекта. нет папки resources нет папки webapp. это надо исправить
       далее: в папке resouces у тебя должен быть файл .property, в котором ты как раз и опишешь все что нужно для подключения к базе данных. пароль, порт и т.д.
       из этого файла надо будет посто читать нужные параметры. создай класс PropertyReader, с единственным статическим методом getProperty, который будет принимать строку с названием проперти и возвращать её значение
       src/main/java/util/DBHelper.java (Lines 16-32);
     + 10)Используй в запросах capslock
        src/main/java/dao/UserDaoImpl.java (Line 35);
+Reworking list 4:
+    1) Коннекшн в дао JDBC;
+    2) В дао передавать фабрику сессий хиб;
+    +3) Ловить эксепшн при закрытии сессии;
+    4) Реализовать паттерн шаблонный метод - фабричный метод;
+    + 5) Реализовать свойства через Property class;
+    + 6) DBHelper исправить;
+    + 7) JSP с маленькой буквы;
+    + 8) Название папки в ед. экз;
+    + 9)"http://localhost:8080/all" - зачем полный путь?
+    + 10) Селать 1 проперти.
+
 Pre-project education structure:
     ТЕМА №1 Разработка web-сервиса с использованием технологий Tomcat, Servlet, JSP, Maven , JDBC + паттерн проектирования Executor.
     ТЕМА №2 Добавление в проект JPA, Hibernate. Применение паттернов Factory, Singletone.

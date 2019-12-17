@@ -1,4 +1,4 @@
-package servlets;
+package servlet;
 
 import service.UserService;
 import service.UserServiceImpl;
@@ -17,7 +17,7 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setStatus(200);
-        req.getRequestDispatcher("/EditUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/editUsers.jsp").forward(req, resp);
     }
 
     @Override
@@ -32,6 +32,6 @@ public class EditUserServlet extends HttpServlet {
         } else {
             resp.setStatus(403);
         }
-        resp.sendRedirect("http://localhost:8080/all");
+        resp.sendRedirect("/all");
     }
 }
