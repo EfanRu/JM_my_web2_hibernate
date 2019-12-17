@@ -26,8 +26,9 @@ public class EditUserServlet extends HttpServlet {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String phoneNumber = req.getParameter("phoneNumber");
+        String role = req.getParameter("role");
 
-        if (userService.updateUser(id, firstName, lastName, phoneNumber)) {
+        if (userService.updateUser(id, firstName, lastName, phoneNumber, role)) {
             resp.setStatus(200);
         } else {
             resp.setStatus(403);

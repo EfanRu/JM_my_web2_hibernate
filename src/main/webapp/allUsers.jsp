@@ -19,6 +19,7 @@
                   <td>First name</td>
                   <td>Second name</td>
                   <td>Phone number</td>
+                  <td>Role</td>
               </tr>
                   <c:forEach var="user" items="${listUser}">
               <tr>
@@ -26,6 +27,7 @@
                       <td>${user.getFirstName()}</td>
                       <td>${user.getLastName()}</td>
                       <td>${user.getPhoneNumber()}</td>
+                      <td>${user.getRole()}</td>
               </tr>
                   </c:forEach>
           </table>
@@ -42,6 +44,9 @@
           </p>
           <p>Phone number<br>
               <input type="text" name="phoneNumber">
+          </p>
+            <p>Role<br>
+              <input type="text" name="role">
           </p>
           <input type="submit" value="Submit">
       </form>

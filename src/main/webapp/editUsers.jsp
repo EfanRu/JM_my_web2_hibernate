@@ -27,6 +27,9 @@
         <p>Phone number<br>
             <input type="text" name="phoneNumber">
         </p>
+        <p>Role<br>
+            <input type="text" name="role">
+        </p>
         <input type="submit" value="Submit">
     </form>
     <br>

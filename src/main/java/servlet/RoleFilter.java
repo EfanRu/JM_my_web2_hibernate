@@ -29,7 +29,10 @@ public class RoleFilter implements Filter {
             if (list[list.length - 1].indexOf(".jsp") > 0) {
                 page = list[list.length - 1];
             }
-            if (page != null && page.equalsIgnoreCase())
+//            if (page != null && page.equalsIgnoreCase())
+// Need write logic
+
+        chain.doFilter(request, response);
         }
     }
 
