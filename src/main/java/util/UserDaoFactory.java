@@ -11,6 +11,8 @@ import java.util.Properties;
 public class UserDaoFactory {
     private static UserDaoFactory userDaoFactory;
     private DBHelper dbHelper = DBHelper.getInstance();
+    private UserDaoImplHib userDaoImplHib = new UserDaoImplHib(dbHelper.getSessionFactory());
+    private UserDaoImplJDBC userDaoImplJDBC = new UserDaoImplJDBC();
     private PropertyReader propReader = new PropertyReader("DB.property");
 
     private UserDaoFactory() {}
@@ -25,9 +27,9 @@ public class UserDaoFactory {
     public UserDao getUserDao() {
         String str = propReader.getProperty("db.type");
         if (str.equals("Hibernate")) {
-            return new UserDaoImplHib(dbHelper.getSessionFactory());
+            return userDaoImplHib;
         }else {
-            return new UserDaoImplJDBC(dbHelper.getConnection());
+            return userDaoImplJDBC;
         }
     }
 }

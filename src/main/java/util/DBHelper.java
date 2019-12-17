@@ -77,13 +77,8 @@ public class DBHelper {
                     .append(":")
                     .append(port)
                     .append("/")
-                    .append(name)
-                    .append("?")
-                    .append("user=root&")
-                    .append(login)
-                    .append("&password=")
-                    .append(password);
-            return DriverManager.getConnection(url.toString());
+                    .append(name);
+            return DriverManager.getConnection(url.toString(), login, password);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalStateException();
