@@ -12,38 +12,31 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl userService;
     private SessionFactory sessionFactory;
-    private UserDaoFactory userDaoFactory = UserDaoFactory.getInstance(DBHelper.getInstance().getSessionFactory(), DBHelper.getInstance().getConnection());
+    private UserDaoFactory userDaoFactory = UserDaoFactory.getInstance();
     private String userDaoType = "Hibernate";
-
-    private UserServiceImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public static UserServiceImpl getInstance() {
-        if (userService == null) {
-            userService = new UserServiceImpl(DBHelper.getSessionFactory());
-//            userDaoFactory = new UserDaoFactory(DBHelper.getSessionFactory(), DBHelper.getConnection());
-//            userDaoType = "Hibernate";
-//            userDaoType = "JDBC";
-        }
-        return userService;
-    }
 
     private UserServiceImpl() {}
 
+    public static UserServiceImpl getInstance() {
+        if (userService == null) {
+            userService = new UserServiceImpl();
+      }
+        return userService;
+    }
+
     public List<User> getAllUsers() {
-        return userDaoFactory.getUserDao(userDaoType).getAllUsers();
+        return userDaoFactory.getUserDao().getAllUsers();
     }
 
     public boolean addUser(User u) {
-        return userDaoFactory.getUserDao(userDaoType).addUser(u);
+        return userDaoFactory.getUserDao().addUser(u);
     }
 
     public boolean delUser(String id) {
-        return userDaoFactory.getUserDao(userDaoType).delUser(id);
+        return userDaoFactory.getUserDao().delUser(id);
     }
 
     public boolean updateUser(String id, String firstName, String lastName, String phoneNumber) {
-        return userDaoFactory.getUserDao(userDaoType).updateUser(id, firstName, lastName, phoneNumber);
+        return userDaoFactory.getUserDao().updateUser(id, firstName, lastName, phoneNumber);
     }
 }

@@ -31,14 +31,14 @@ public class DBHelper {
         return instance;
     }
 
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             sessionFactory = createSessionFactory();
         }
         return sessionFactory;
     }
 
-    private static SessionFactory createSessionFactory() {
+    private SessionFactory createSessionFactory() {
         Configuration conf = getConfiguration();
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(conf.getProperties());
@@ -46,7 +46,7 @@ public class DBHelper {
         return conf.buildSessionFactory(serviceRegistry);
     }
 
-    public static Configuration getConfiguration() {
+    private Configuration getConfiguration() {
         Configuration conf = new Configuration();
         StringBuilder sb = new StringBuilder();
 
@@ -68,7 +68,7 @@ public class DBHelper {
         return conf;
     }
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
         try {
             DriverManager.registerDriver(new Driver());
             StringBuilder url = new StringBuilder();

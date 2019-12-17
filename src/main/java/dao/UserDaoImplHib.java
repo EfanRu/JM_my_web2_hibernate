@@ -2,6 +2,7 @@ package dao;
 
 import model.User;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,19 +10,21 @@ import java.util.List;
 
 public class UserDaoImplHib implements UserDao {
     private Session sess;
+    private SessionFactory sessFact;
 
-    public UserDaoImplHib(Session session) {
-        this.sess = session;
+    public UserDaoImplHib(SessionFactory sessionFactory) {
+        this.sessFact = sessionFactory;
     }
 
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
 
-        if (sess == null) {
+        if (sessFact == null) {
             return result;
         }
 
         try {
+            sess = sessFact.openSession();
             sess.beginTransaction();
             result = sess.createQuery("FROM User", User.class).list();
         } catch (RuntimeException e) {
@@ -37,11 +40,12 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public boolean addUser(User u) {
-        if (sess == null) {
+        if (sessFact == null) {
             return false;
         }
 
         try {
+            sess = sessFact.openSession();
             sess.beginTransaction();
             if (u != null) {
                 sess.save(u);
@@ -62,11 +66,12 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public boolean delUser(String id) {
-        if (sess == null) {
+        if (sessFact == null) {
             return false;
         }
 
         try {
+            sess = sessFact.openSession();
             sess.beginTransaction();
             sess.createQuery("DELETE FROM User WHERE id=:id")
                 .setParameter("id", Long.parseLong(id))
@@ -87,11 +92,12 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public boolean updateUser(String id, String firstName, String lastName, String phoneNumber) {
-        if (sess == null) {
+        if (sessFact == null) {
             return false;
         }
 
         try {
+            sess = sessFact.openSession();
             sess.beginTransaction();
             sess.createQuery("UPDATE User SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber where id=:id")
                     .setParameter("id", Long.parseLong(id))
@@ -115,8 +121,9 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public void createTable() {
-        if (sess != null) {
-            try {
+        if (sessFact != null) {
+        try {
+                sess = sessFact.openSession();
                 sess.beginTransaction();
                 sess.createQuery("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, primary key (id))")
                         .executeUpdate();
@@ -135,8 +142,9 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public void dropTable() {
-        if (sess != null) {
+        if (sessFact != null) {
             try {
+                sess = sessFact.openSession();
                 sess.beginTransaction();
                 sess.createQuery("DROP TABLE if EXISTS user")
                         .executeUpdate();
