@@ -21,8 +21,10 @@ public class AddUserServlet extends HttpServlet {
         String lastName = req.getParameter("lastName");
         String phoneNum = req.getParameter("phoneNumber");
         String role = req.getParameter("role");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
 
-        if (userService.addUser(new User(firstName, lastName, Long.parseLong(phoneNum), role))) {
+        if (userService.addUser(new User(firstName, lastName, Long.parseLong(phoneNum), role, login, password))) {
             resp.setStatus(200);
         } else {
             resp.setStatus(403);

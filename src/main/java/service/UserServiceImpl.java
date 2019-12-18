@@ -22,19 +22,28 @@ public class UserServiceImpl implements UserService {
         return userService;
     }
 
+    @Override
     public List<User> getAllUsers() {
         return userDaoFactory.getUserDao().getAllUsers();
     }
 
+    @Override
     public boolean addUser(User u) {
         return userDaoFactory.getUserDao().addUser(u);
     }
 
+    @Override
     public boolean delUser(String id) {
         return userDaoFactory.getUserDao().delUser(id);
     }
 
-    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role) {
-        return userDaoFactory.getUserDao().updateUser(id, firstName, lastName, phoneNumber, role);
+    @Override
+    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password) {
+        return userDaoFactory.getUserDao().updateUser(id, firstName, lastName, phoneNumber, role, login, password);
+    }
+
+    @Override
+    public boolean checkAuth(String login, String password) {
+        return userDaoFactory.getUserDao().checkAuth(login, password);
     }
 }

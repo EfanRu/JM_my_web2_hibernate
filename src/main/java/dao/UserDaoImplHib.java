@@ -91,7 +91,7 @@ public class UserDaoImplHib implements UserDao {
         return false;
     }
 
-    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role) {
+    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password) {
         if (sessFact == null) {
             return false;
         }
@@ -99,12 +99,14 @@ public class UserDaoImplHib implements UserDao {
         try {
             sess = sessFact.openSession();
             sess.beginTransaction();
-            sess.createQuery("UPDATE User SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber, role = :role where id=:id")
+            sess.createQuery("UPDATE User SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber, role = :role, login = :login, password = :password where id=:id")
                     .setParameter("id", Long.parseLong(id))
                     .setParameter("firstName", firstName)
                     .setParameter("lastName", lastName)
                     .setParameter("phoneNumber", Long.parseLong(phoneNumber))
                     .setParameter("role", role)
+                    .setParameter("login", login)
+                    .setParameter("password", password)
                     .executeUpdate();
             sess.getTransaction().commit();
             return true;
@@ -121,12 +123,35 @@ public class UserDaoImplHib implements UserDao {
         return false;
     }
 
-    public void createTable() {
+    public boolean checkAuth(String login, String password) {
+        if (sessFact == null) {
+            return false;
+        }
+
+        try {
+            sess = sessFact.openSession();
+            sess.beginTransaction();
+//            sess.createQuery("FROM User WHERE ", User.class).uniqueResult();
+
+        } catch(RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                sess.close();
+            } catch (RuntimeException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return ;
+    }
+
+        public void createTable() {
         if (sessFact != null) {
         try {
                 sess = sessFact.openSession();
                 sess.beginTransaction();
-                sess.createQuery("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128), primary key (id))")
+                sess.createQuery("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128), login varchar(128), password varchar(128) primary key (id))")
                         .executeUpdate();
                 sess.getTransaction().commit();
             } catch (RuntimeException e) {

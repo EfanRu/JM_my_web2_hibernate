@@ -30,6 +30,13 @@
         <p>Role<br>
             <input type="text" name="role">
         </p>
+        <p>Login<br>
+            <input type="text" name="login">
+        </p>
+        </p>
+        <p>Password<br>
+            <input type="text" name="password">
+        </p>
         <input type="submit" value="Submit">
     </form>
     <br>

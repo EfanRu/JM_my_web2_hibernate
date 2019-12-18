@@ -30,7 +30,9 @@ public class UserDaoImplJDBC implements UserDao {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getLong(4),
-                        rs.getString(5)));
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,7 +48,7 @@ public class UserDaoImplJDBC implements UserDao {
     }
 
     public boolean addUser(User u) {
-        String sql = "INSERT INTO user VALUES(null, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user VALUES(null, ?, ?, ?, ?, ?, ?)";
         con = DBHelper.getInstance().getConnection();
 
         if (con == null) {
@@ -59,6 +61,8 @@ public class UserDaoImplJDBC implements UserDao {
             pstmt.setString(2, u.getLastName());
             pstmt.setLong(3, u.getPhoneNumber());
             pstmt.setString(4, u.getRole());
+            pstmt.setString(4, u.getLogin());
+            pstmt.setString(4, u.getPassword());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -110,8 +114,8 @@ public class UserDaoImplJDBC implements UserDao {
         }
     }
 
-    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role) {
-        String sql = "UPDATE user SET first_name = ?, last_name = ?, phone_number = ?, role = ? where id=?";
+    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password) {
+        String sql = "UPDATE user SET first_name = ?, last_name = ?, phone_number = ?, role = ?, login = ?, password = ? where id=?";
         con = DBHelper.getInstance().getConnection();
 
         if (con == null) {
@@ -125,6 +129,8 @@ public class UserDaoImplJDBC implements UserDao {
             pstmt.setLong(3, Long.parseLong(phoneNumber));
             pstmt.setLong(4, Long.parseLong(id));
             pstmt.setString(5, role);
+            pstmt.setString(6, login);
+            pstmt.setString(7, password);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -148,7 +154,7 @@ public class UserDaoImplJDBC implements UserDao {
     public void createTable() {
         con = DBHelper.getInstance().getConnection();
         try (Statement stmt = con.createStatement()) {
-            stmt.execute("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128) primary key (id))");
+            stmt.execute("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128), login varchar(128), password varchar(128) primary key (id))");
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();

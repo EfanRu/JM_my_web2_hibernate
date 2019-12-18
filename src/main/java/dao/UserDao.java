@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface UserDao {
-    public List<User> getAllUsers();
-    public boolean addUser(User u);
-    public boolean delUser(String id);
-    public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role);
-    public void createTable();
-    public void dropTable();
+    List<User> getAllUsers();
+    boolean addUser(User u);
+    boolean delUser(String id);
+    boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password);
+    boolean checkAuth(String login, String password);
+    void createTable();
+    void dropTable();
 }
