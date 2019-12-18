@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkAuth(String login, String password) {
+    public User checkAuth(String login, String password) {
         return userDaoFactory.getUserDao().checkAuth(login, password);
     }
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.istack.Nullable;
 import model.User;
 import org.hibernate.Session;
 import util.DBHelper;
@@ -149,6 +150,36 @@ public class UserDaoImplJDBC implements UserDao {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Nullable
+    @Override
+    public User checkAuth(String login, String password) {
+        User user = null;
+        String sql = "SELECT * FROM User WHERE login=? and password=?";
+        con = DBHelper.getInstance().getConnection();
+
+        if (con == null) {
+            return user;
+        }
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, login);
+            pstmt.setString(2, login);
+            ResultSet rs = pstmt.getResultSet();
+            if (rs.next()) {
+                user = new User(rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getLong(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     public void createTable() {

@@ -21,7 +21,7 @@ public class AppUtil {
         return (User) session.getAttribute("loginedUser");
     }
 
-    public boolean checkAuth(String login, String password) {
+    public static User checkAuth(String login, String password) {
         return UserServiceImpl.getInstance().checkAuth(login, password);
     }
 

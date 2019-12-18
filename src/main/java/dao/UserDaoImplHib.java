@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.istack.Nullable;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -123,15 +124,18 @@ public class UserDaoImplHib implements UserDao {
         return false;
     }
 
-    public boolean checkAuth(String login, String password) {
+    @Nullable
+    public User checkAuth(String login, String password) {
+        User user = null;
+
         if (sessFact == null) {
-            return false;
+            return user;
         }
 
         try {
             sess = sessFact.openSession();
             sess.beginTransaction();
-//            sess.createQuery("FROM User WHERE ", User.class).uniqueResult();
+            user = (User) sess.createQuery("FROM User WHERE login = :login, password = :password").uniqueResult();
 
         } catch(RuntimeException e) {
             e.printStackTrace();
@@ -142,8 +146,7 @@ public class UserDaoImplHib implements UserDao {
                 ex.printStackTrace();
             }
         }
-
-        return ;
+        return user;
     }
 
         public void createTable() {

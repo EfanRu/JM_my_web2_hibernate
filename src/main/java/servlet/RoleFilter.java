@@ -30,24 +30,16 @@ public class RoleFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         String servletPath = req.getServletPath();
-        HttpSession sess = req.getSession();
 
         if (servletPath.equalsIgnoreCase("/authorization")) {
             chain.doFilter(request, response);
             return;
         }
 
-        User loginedUser = AppUtil.getLoginedUser(req.getSession());
-        AppUtil.checkAuth(req.getParameter("login"), req.getParameter("password"));
-
-        if (loginedUser != null) {
-            String userName = loginedUser.getLogin();
-            String role = loginedUser.getRole();
-        }
+        User loginedUser = AppUtil.checkAuth(req.getParameter("login"), req.getParameter("password"));
 
         if (servletPath.contains("admin")) {
             if (loginedUser == null) {
-                String reqUri = req.getRequestURI();
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 resp.sendRedirect("/authorization");
                 return;
