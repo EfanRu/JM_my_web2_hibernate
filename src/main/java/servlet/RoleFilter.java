@@ -12,18 +12,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebFilter("/*")
+@WebFilter("/admin/*")
 public class RoleFilter implements Filter {
-    private FilterConfig filterConfig;
     private static ArrayList<String> pages;
     private AccountManager accMng = AccountManager.getInstance();
 
     public RoleFilter() {}
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        this.filterConfig = filterConfig;
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -31,25 +28,19 @@ public class RoleFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String servletPath = req.getServletPath();
 
-        if (servletPath.equalsIgnoreCase("/authorization")) {
-            chain.doFilter(request, response);
+        User loginedUser = AppUtil.checkAuth(req.getParameter("login"), req.getParameter("password"));
+        accMng.addUser(loginedUser, req.getSession());
+
+        if (loginedUser == null) {
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.sendRedirect("/authorization");
             return;
         }
 
-        User loginedUser = AppUtil.checkAuth(req.getParameter("login"), req.getParameter("password"));
-
-        if (servletPath.contains("admin")) {
-            if (loginedUser == null) {
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                resp.sendRedirect("/authorization");
-                return;
-            }
-
-            if (!loginedUser.getRole().equalsIgnoreCase("admin")) {
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                req.getRequestDispatcher("/user.jsp").forward(req, resp);
-                return;
-            }
+        if (!loginedUser.getRole().equalsIgnoreCase("admin")) {
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            req.getRequestDispatcher("/user.jsp").forward(req, resp);
+            return;
         }
         chain.doFilter(req, resp);
     }

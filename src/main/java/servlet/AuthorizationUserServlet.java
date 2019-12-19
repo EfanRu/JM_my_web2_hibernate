@@ -22,16 +22,16 @@ public class AuthorizationUserServlet extends HttpServlet {
 
         if (user == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.sendRedirect("/authorization");
+            resp.sendRedirect("/");
         } else if (user.getRole().equalsIgnoreCase("user")) {
             resp.setStatus(200);
             req.getRequestDispatcher("/user.jsp").forward(req, resp);
         } else if (user.getRole().equalsIgnoreCase("admin")) {
             resp.setStatus(200);
-            req.getRequestDispatcher("/user.jsp").forward(req, resp);
+            req.getRequestDispatcher("/allUsers.jsp").forward(req, resp);
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.sendRedirect("/authorization");
+            resp.sendRedirect("/");
         }
     }
 }

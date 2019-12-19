@@ -135,8 +135,11 @@ public class UserDaoImplHib implements UserDao {
         try {
             sess = sessFact.openSession();
             sess.beginTransaction();
-            user = (User) sess.createQuery("FROM User WHERE login = :login, password = :password").uniqueResult();
-
+            user = (User) sess.createQuery("FROM User WHERE login = :login and password = :password")
+                    .setParameter("login", login)
+                    .setParameter("password", password)
+                    .uniqueResult();
+            sess.getTransaction().commit();
         } catch(RuntimeException e) {
             e.printStackTrace();
         } finally {

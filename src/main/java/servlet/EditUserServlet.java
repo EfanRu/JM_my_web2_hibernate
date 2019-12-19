@@ -35,6 +35,6 @@ public class EditUserServlet extends HttpServlet {
         } else {
             resp.setStatus(403);
         }
-        resp.sendRedirect("/all");
+        resp.sendRedirect("/admin/all");
     }
 }

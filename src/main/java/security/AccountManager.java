@@ -23,4 +23,8 @@ public class AccountManager {
         UserServiceImpl.getInstance().addUser(admin);
         return accMng;
     }
+
+    public void addUser(User user, HttpSession sess) {
+        accMap.put(user, sess);
+    }
 }
