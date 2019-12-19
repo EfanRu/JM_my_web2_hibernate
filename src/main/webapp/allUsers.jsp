@@ -12,12 +12,14 @@
 
   <p>All users in database:<br>
 
-      <form action="/all" method="get">
+      <form action="/admin/all" method="get">
           <table>
               <tr>
                   <td>id</td>
                   <td>First name</td>
                   <td>Second name</td>
+                  <td>Login</td>
+                  <td>Password</td>
                   <td>Phone number</td>
                   <td>Role</td>
               </tr>
@@ -26,6 +28,8 @@
                       <td>${user.getId()}</td>
                       <td>${user.getFirstName()}</td>
                       <td>${user.getLastName()}</td>
+                      <td>${user.getLogin()}</td>
+                      <td>${user.getPassword()}</td>
                       <td>${user.getPhoneNumber()}</td>
                       <td>${user.getRole()}</td>
               </tr>
@@ -35,7 +39,7 @@
 
   <body>
   <p>Add user:<br>
-      <form action="/add" method="post">
+      <form action="/admin/add" method="post">
           <p>First name:<br>
               <input type="text" name="firstName">
           </p>
@@ -62,7 +66,7 @@
 
   <body>
   <p>Edit and delete user:
-      <form action="/edit" method="GET">
+      <form action="/admin/edit" method="GET">
           <input type="submit" value="Edit or delete user">
       </form>
   </body>

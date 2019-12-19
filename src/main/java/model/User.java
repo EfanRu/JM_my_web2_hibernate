@@ -15,18 +15,18 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "phone_number")
-    private Long phoneNumber;
-    @Column(name = "role")
-    private String role;
     @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
+    @Column(name = "phone_number")
+    private Long phoneNumber;
+    @Column(name = "role")
+    private String role;
 
     public User() {}
 
-    public User(Long id, String firstName, String lastName, Long phoneNumber, String role, String login, String password) {
+    public User(Long id, String firstName, String lastName, String login, String password, Long phoneNumber, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -36,7 +36,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, Long phoneNumber, String role, String login, String password) {
+    public User(String firstName, String lastName, String login, String password, Long phoneNumber, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -100,5 +100,23 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("User id=")
+                .append(getId())
+                .append(", first name=")
+                .append(getFirstName())
+                .append(", last name=")
+                .append(getLastName())
+                .append(", role=")
+                .append(getRole())
+                .append(", login=")
+                .append(getLogin())
+                .append(", password=")
+                .append(getPassword())
+                .toString();
     }
 }

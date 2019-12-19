@@ -11,7 +11,7 @@ import java.util.Map;
 public class AccountManager {
     private static AccountManager accMng;
     private static Map<User, HttpSession> accMap = new HashMap<>();
-    private static User admin = new User("Root admin", "Root admin", 0L, "admin", "admin", "admin");
+    private static User admin = new User("Root admin", "Root admin", "admin", "admin", 0L, "admin");
 
     private AccountManager() {}
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/add")
+@WebServlet("/admin/add")
 public class AddUserServlet extends HttpServlet {
     private UserService userService = UserServiceImpl.getInstance();
 
@@ -24,7 +24,7 @@ public class AddUserServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        if (userService.addUser(new User(firstName, lastName, Long.parseLong(phoneNum), role, login, password))) {
+        if (userService.addUser(new User(firstName, lastName, login, password, Long.parseLong(phoneNum), role))) {
             resp.setStatus(200);
         } else {
             resp.setStatus(403);

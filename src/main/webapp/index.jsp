@@ -13,13 +13,14 @@
 <body>
     <p>Please log in:<br>
         <form action="/authorization" method="get">
-    <p>Login:<br>
-        <input type="text" name="login">
-    </p>
-    <p>Password:<br>
-        <input type="text" name="password">
-    </p>
-    </form>
+            <p>Login:<br>
+                <input type="text" name="login">
+            </p>
+            <p>Password:<br>
+                <input type="text" name="password">
+            </p>
+            <input type="submit" value="Log in">
+        </form>
     <br>
 </body>
 </html>

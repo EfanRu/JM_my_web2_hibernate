@@ -47,7 +47,7 @@ public class RoleFilter implements Filter {
 
             if (!loginedUser.getRole().equalsIgnoreCase("admin")) {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                resp.sendRedirect("/authorization");
+                req.getRequestDispatcher("/user.jsp").forward(req, resp);
                 return;
             }
         }

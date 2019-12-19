@@ -14,7 +14,7 @@
 <body>
 <p>Edit User<br>
     <p>Write id of user for delete:<br>
-    <form action="/edit" method="post">
+    <form action="/admin/edit" method="post">
         <p>Id:<br>
             <input type="text" name="id">
         </p>

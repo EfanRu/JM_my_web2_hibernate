@@ -16,14 +16,22 @@ import java.io.IOException;
 public class AuthorizationUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("login").equals("root")
-            && req.getParameter("password").equals("root")) {
-            resp.setStatus(200);
-            resp.sendRedirect("/all");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        User user = UserServiceImpl.getInstance().checkAuth(login, password);
 
-        } else {
+        if (user == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.sendRedirect("/");
+            resp.sendRedirect("/authorization");
+        } else if (user.getRole().equalsIgnoreCase("user")) {
+            resp.setStatus(200);
+            req.getRequestDispatcher("/user.jsp").forward(req, resp);
+        } else if (user.getRole().equalsIgnoreCase("admin")) {
+            resp.setStatus(200);
+            req.getRequestDispatcher("/user.jsp").forward(req, resp);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.sendRedirect("/authorization");
         }
     }
 }
