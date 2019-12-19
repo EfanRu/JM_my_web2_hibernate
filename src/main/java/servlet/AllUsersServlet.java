@@ -23,5 +23,6 @@ public class AllUsersServlet extends HttpServlet {
         resp.setStatus(200);
 
         req.getRequestDispatcher("/allUsers.jsp").forward(req, resp);
+        
     }
 }
