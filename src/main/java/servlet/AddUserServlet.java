@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/admin/add")
 public class AddUserServlet extends HttpServlet {
     private UserService userService = UserServiceImpl.getInstance();
- 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
@@ -29,6 +29,9 @@ public class AddUserServlet extends HttpServlet {
         } else {
             resp.setStatus(403);
         }
-        resp.sendRedirect("/admin/all");
+        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
+        req.getRequestDispatcher("/admin/all").forward(req, resp);
+        System.out.println((User) req.getAttribute("loginedUser") + " in Class: "+ getClass().getCanonicalName());
+        //        resp.sendRedirect("/admin/all");
     }
 }

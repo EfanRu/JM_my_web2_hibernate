@@ -1,5 +1,6 @@
 package servlet;
 
+import model.User;
 import service.UserService;
 import service.UserServiceImpl;
 
@@ -17,6 +18,7 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setStatus(200);
+        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
         req.getRequestDispatcher("/editUsers.jsp").forward(req, resp);
     }
 
@@ -35,6 +37,10 @@ public class EditUserServlet extends HttpServlet {
         } else {
             resp.setStatus(403);
         }
-        resp.sendRedirect("/admin/all");
+        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
+        req.getRequestDispatcher("/admin/all").forward(req, resp);
+        System.out.println((User) req.getAttribute("loginedUser") + " in Class: "+ getClass().getCanonicalName());
+
+//        resp.sendRedirect("/admin/all");
     }
 }

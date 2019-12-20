@@ -1,5 +1,6 @@
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/model/User.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/dao/UserDaoImplHib.java
+/home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/SecurityFilter.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/dao/UserDao.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/AuthorizationUserServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/EditUserServlet.java
@@ -11,7 +12,6 @@
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/service/UserServiceImpl.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/DBHelper.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/service/UserService.java
-/home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/RoleFilter.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/PropertyReader.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/AddUserServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/UserDaoFactory.java
