@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/admin/add")
 public class AddUserServlet extends HttpServlet {
     private UserService userService = UserServiceImpl.getInstance();
-
+ 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("firstName");
