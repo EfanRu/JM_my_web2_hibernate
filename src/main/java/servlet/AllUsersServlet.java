@@ -21,9 +21,6 @@ public class AllUsersServlet extends HttpServlet {
         List<User> list = userService.getAllUsers();
         req.setAttribute("listUser", list);
         resp.setStatus(200);
-
-        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
-        System.out.println((User) req.getAttribute("loginedUser") + " in Class: "+ getClass().getCanonicalName());
         req.getRequestDispatcher("/allUsers.jsp").forward(req, resp);
     }
 }

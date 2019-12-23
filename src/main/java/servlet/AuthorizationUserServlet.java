@@ -1,15 +1,15 @@
 package servlet;
 
 import model.User;
-import service.UserService;
 import service.UserServiceImpl;
+import util.AppUtil;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.Filter;
 import java.io.IOException;
 
 @WebServlet("/authorization")
@@ -21,17 +21,26 @@ public class AuthorizationUserServlet extends HttpServlet {
         User user = UserServiceImpl.getInstance().checkAuth(login, password);
 
         if (user == null) {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.sendRedirect("/");
-        } else if (user.getRole().equalsIgnoreCase("user")) {
-            resp.setStatus(200);
-            req.getRequestDispatcher("/user.jsp").forward(req, resp);
-        } else if (user.getRole().equalsIgnoreCase("admin")) {
-            resp.setStatus(200);
-            req.getRequestDispatcher("/allUsers.jsp").forward(req, resp);
+            String errorMessage = "Invalid userName or Password";
+            req.setAttribute("errorMessage", errorMessage);
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(req, resp);
+            return;
+        }
+
+        AppUtil.storeLoggedUser(req.getSession(),user);
+
+        int redirectId = -1;
+        try {
+            redirectId = Integer.parseInt(req.getParameter("redirectId"));
+        } catch (Exception e) {
+            System.out.println("Redirect id is null");
+        }
+        String requestUri = AppUtil.getRedirectAfterLoginUrl(req.getSession(), redirectId);
+        if (requestUri != null) {
+            resp.sendRedirect(requestUri);
         } else {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.sendRedirect("/");
+            resp.sendRedirect(req.getContextPath() + "/user.jsp");
         }
     }
 }

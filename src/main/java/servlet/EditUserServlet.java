@@ -32,15 +32,7 @@ public class EditUserServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        if (userService.updateUser(id, firstName, lastName, phoneNumber, role, login, password)) {
-            resp.setStatus(200);
-        } else {
-            resp.setStatus(403);
-        }
-        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
-        req.getRequestDispatcher("/admin/all").forward(req, resp);
-        System.out.println((User) req.getAttribute("loginedUser") + " in Class: "+ getClass().getCanonicalName());
-
-//        resp.sendRedirect("/admin/all");
+        resp.setStatus(userService.updateUser(id, firstName, lastName, phoneNumber, role, login, password) ? 200 : 403);
+        resp.sendRedirect("/admin/all");
     }
 }

@@ -41,7 +41,7 @@
     </form>
     <br>
     <p>Delete user<br>
-    <form action="/delete" method="post">
+    <form action="/admin/delete" method="post">
         <p>Write id of user for delete:<br>
             <input type="text" name="id">
         </p>

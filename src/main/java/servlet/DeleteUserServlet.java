@@ -17,23 +17,12 @@ public class DeleteUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
-        System.out.println((User) req.getAttribute("loginedUser") + " in Class: "+ getClass().getCanonicalName());
         req.getRequestDispatcher("/editUsers.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-
-        if (userService.delUser(id)) {
-            resp.setStatus(200);
-        } else {
-            resp.setStatus(403);
-        }
-        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
-        req.getRequestDispatcher("/admin/all").forward(req, resp);
-        System.out.println((User) req.getAttribute("loginedUser") + " in Class: "+ getClass().getCanonicalName());
-//        resp.sendRedirect("/all");
+        resp.setStatus(userService.delUser(req.getParameter("id")) ? 200 : 403);
+        resp.sendRedirect("/admin/all");
     }
 }
