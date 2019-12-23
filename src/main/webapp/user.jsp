@@ -12,6 +12,6 @@
 </head>
 <body>
 <h3>Welcome to user page, piece of meat!</h3>
-    Bla-bla-bla...
+    User: Bla-bla-bla...
 </body>
 </html>

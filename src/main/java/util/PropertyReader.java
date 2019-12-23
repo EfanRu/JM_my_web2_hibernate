@@ -8,7 +8,6 @@ public class PropertyReader {
     private Properties properties;
     private InputStreamReader in;
 
-
     public PropertyReader(String propertyFileName) {
         properties = new Properties();
         in = new InputStreamReader(Objects.requireNonNull(getClass()
