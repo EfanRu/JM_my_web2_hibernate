@@ -30,7 +30,6 @@ public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
             return realRequest.getUserPrincipal();
         }
 
-        // Make an anonymous implementation to just return our user
         return new Principal() {
             @Override
             public String getName() {

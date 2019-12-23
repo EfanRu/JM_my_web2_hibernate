@@ -41,9 +41,6 @@ public class SecurityFilter implements Filter {
 
         if (SecurityUtils.isSecurityPage(req)) {
             if (loginedUser == null) {
-                String requestUri = req.getRequestURI();
-                int redirectId = AppUtil.storeRedirectAfterLoginUrl(req.getSession(), requestUri);
-
                 resp.sendRedirect(wrapRequest.getContextPath() + "/");
                 return;
             }

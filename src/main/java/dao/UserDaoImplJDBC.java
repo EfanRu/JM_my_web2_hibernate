@@ -156,7 +156,7 @@ public class UserDaoImplJDBC implements UserDao {
     @Override
     public User checkAuth(String login, String password) {
         User user = null;
-        String sql = "SELECT * FROM User WHERE login=? and password=?";
+        String sql = "SELECT * FROM user WHERE login=? and password=?";
         con = DBHelper.getInstance().getConnection();
 
         if (con == null) {
@@ -165,7 +165,7 @@ public class UserDaoImplJDBC implements UserDao {
 
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, login);
-            pstmt.setString(2, login);
+            pstmt.setString(2, password);
             ResultSet rs = pstmt.getResultSet();
             if (rs != null && rs.next()) {
                 user = new User(rs.getLong(1),
