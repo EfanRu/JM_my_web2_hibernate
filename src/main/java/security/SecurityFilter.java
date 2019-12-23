@@ -25,8 +25,16 @@ public class SecurityFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String servletPath = req.getServletPath();
 
-        if (servletPath.equals("/authorization")) {
+        if (servletPath.equals("/authorization") ||
+            servletPath.equals("/login") ||
+            servletPath.equals("/")) {
             chain.doFilter(request, response);
+            return;
+        }
+
+        if (servletPath.contains(".jsp")) {
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login");
+            dispatcher.forward(request, response);
             return;
         }
 

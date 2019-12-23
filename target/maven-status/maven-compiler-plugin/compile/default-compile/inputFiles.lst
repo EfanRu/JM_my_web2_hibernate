@@ -8,13 +8,16 @@
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/security/SecurityConfig.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/EditUserServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/UrlPatternUtils.java
+/home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/LogInServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/AllUsersServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/DeleteUserServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/AppUtil.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/dao/UserDaoImplJDBC.java
+/home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/UserServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/service/UserServiceImpl.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/DBHelper.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/service/UserService.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/PropertyReader.java
+/home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/LogOutServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/servlet/AddUserServlet.java
 /home/slava/Downloads/JM_my_web2_hibernate/src/main/java/util/UserDaoFactory.java

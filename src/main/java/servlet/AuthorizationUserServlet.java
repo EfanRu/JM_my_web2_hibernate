@@ -19,28 +19,41 @@ public class AuthorizationUserServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         User user = UserServiceImpl.getInstance().checkAuth(login, password);
+        User loginedUser = AppUtil.getLoginedUser(req.getSession());
 
-        if (user == null) {
-            String errorMessage = "Invalid userName or Password";
-            req.setAttribute("errorMessage", errorMessage);
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-            dispatcher.forward(req, resp);
-            return;
-        }
-
-        AppUtil.storeLoggedUser(req.getSession(),user);
-
-        int redirectId = -1;
-        try {
-            redirectId = Integer.parseInt(req.getParameter("redirectId"));
-        } catch (Exception e) {
-            System.out.println("Redirect id is null");
-        }
-        String requestUri = AppUtil.getRedirectAfterLoginUrl(req.getSession(), redirectId);
-        if (requestUri != null) {
-            resp.sendRedirect(requestUri);
+        if (loginedUser != null) {
+            resp.setStatus(HttpServletResponse.SC_CONFLICT);
+            req.getRequestDispatcher("/user").forward(req, resp);
         } else {
-            resp.sendRedirect(req.getContextPath() + "/user.jsp");
+            if (user == null) {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                req.getRequestDispatcher("/login").forward(req, resp);
+            } else if (user.getRole().equalsIgnoreCase("admin")) {
+                resp.setStatus(200);
+                req.getRequestDispatcher("/admin/all").forward(req, resp);
+            } else if (user.getRole().equalsIgnoreCase("user")) {
+                resp.setStatus(200);
+                req.getRequestDispatcher("/user").forward(req, resp);
+            }
         }
+
+
+//        return;
+//
+        AppUtil.storeLoggedUser(req.getSession(),user);
+//
+//        int redirectId = -1;
+//        try {
+//            redirectId = Integer.parseInt(req.getParameter("redirectId"));
+//        } catch (Exception e) {
+//            System.out.println("Redirect id is null");
+//        }
+//        String requestUri = AppUtil.getRedirectAfterLoginUrl(req.getSession(), redirectId);
+//        if (requestUri != null) {
+//            resp.sendRedirect(requestUri);
+//        } else {
+////            resp.sendRedirect(req.getContextPath() + "/user.jsp");
+//            req.getRequestDispatcher("/login").forward(req, resp);
+//        }
     }
 }

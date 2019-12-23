@@ -17,6 +17,10 @@ public class AppUtil {
         session.setAttribute("loginedUser", user);
     }
 
+    public static void delLoggedUser(HttpSession session) {
+        session.removeAttribute("loginedUser");
+    }
+
     public static User getLoginedUser(HttpSession session) {
         return (User) session.getAttribute("loginedUser");
     }

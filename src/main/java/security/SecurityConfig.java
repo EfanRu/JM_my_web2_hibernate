@@ -19,12 +19,13 @@ public class SecurityConfig {
         urlPatternsAdmin.add("/admin/edit");
         urlPatternsAdmin.add("/admin/all");
         urlPatternsAdmin.add("/admin/delete");
+        urlPatternsAdmin.add("/user");
 
         mapConfig.put(ROLE_ADMIN, urlPatternsAdmin);
 
         List<String> urlPatternsUser = new ArrayList<String>();
 
-        urlPatternsUser.add("/user.jsp");
+        urlPatternsUser.add("/user");
 
         mapConfig.put(ROLE_USER, urlPatternsUser);
     }

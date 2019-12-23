@@ -5,12 +5,14 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class PropertyReader {
-    private Properties properties;
-    private InputStreamReader in;
+    private static Properties properties;
+    private static InputStreamReader in;
 
-    public PropertyReader(String propertyFileName) {
+    public PropertyReader() {}
+
+    public static String getProperty(String property, String propertyFileName) {
         properties = new Properties();
-        in = new InputStreamReader(Objects.requireNonNull(getClass()
+        in = new InputStreamReader(Objects.requireNonNull(PropertyReader.class
                 .getClassLoader()
                 .getResourceAsStream(propertyFileName)));
 
@@ -26,9 +28,6 @@ public class PropertyReader {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public String getProperty(String property) {
         return properties.getProperty(property);
     }
 }

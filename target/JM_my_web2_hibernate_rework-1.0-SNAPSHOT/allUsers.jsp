@@ -69,5 +69,10 @@
       <form action="/admin/edit" method="GET">
           <input type="submit" value="Edit or delete user">
       </form>
+
+
+    <form action="/logout" method="get">
+      <input type="submit" value="Log out">
+    </form>
   </body>
 </html>

@@ -31,10 +31,12 @@ public class UserDaoImplHib implements UserDao {
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
-            try {
-                sess.close();
-            } catch (RuntimeException ex) {
-                ex.printStackTrace();
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         return result;
@@ -57,10 +59,12 @@ public class UserDaoImplHib implements UserDao {
             e.printStackTrace();
             sess.getTransaction().rollback();
         } finally {
-            try {
-                sess.close();
-            } catch (RuntimeException ex) {
-                ex.printStackTrace();
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         return false;
@@ -83,10 +87,12 @@ public class UserDaoImplHib implements UserDao {
             sess.getTransaction().rollback();
             e.printStackTrace();
         } finally {
-            try {
-                sess.close();
-            } catch (RuntimeException ex) {
-                ex.printStackTrace();
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         return false;
@@ -115,10 +121,12 @@ public class UserDaoImplHib implements UserDao {
             e.printStackTrace();
             sess.getTransaction().rollback();
         } finally {
-            try {
-                sess.close();
-            } catch (RuntimeException ex) {
-                ex.printStackTrace();
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         return false;
@@ -143,10 +151,12 @@ public class UserDaoImplHib implements UserDao {
         } catch(RuntimeException e) {
             e.printStackTrace();
         } finally {
-            try {
-                sess.close();
-            } catch (RuntimeException ex) {
-                ex.printStackTrace();
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (RuntimeException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         return user;
@@ -164,10 +174,12 @@ public class UserDaoImplHib implements UserDao {
                 sess.getTransaction().rollback();
                 e.printStackTrace();
             } finally {
-                try {
-                    sess.close();
-                } catch (RuntimeException ex) {
-                    ex.printStackTrace();
+                if (sess != null) {
+                    try {
+                        sess.close();
+                    } catch (RuntimeException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
@@ -185,10 +197,12 @@ public class UserDaoImplHib implements UserDao {
                 sess.getTransaction().rollback();
                 e.printStackTrace();
             } finally {
-                try {
-                    sess.close();
-                } catch (RuntimeException ex) {
-                    ex.printStackTrace();
+                if (sess != null) {
+                    try {
+                        sess.close();
+                    } catch (RuntimeException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }

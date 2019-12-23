@@ -13,5 +13,9 @@
 <body>
 <h3>Welcome to user page, piece of meat!</h3>
     User: Bla-bla-bla...
+
+    <form action="/logout" method="get">
+        <input type="submit" value="Log out">
+    </form>
 </body>
 </html>

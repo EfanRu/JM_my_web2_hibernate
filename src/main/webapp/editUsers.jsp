@@ -47,5 +47,9 @@
         </p>
         <input type="submit" value="Submit">
     </form>
+
+    <form action="/logout" method="get">
+        <input type="submit" value="Log out">
+    </form>
 </body>
 </html>

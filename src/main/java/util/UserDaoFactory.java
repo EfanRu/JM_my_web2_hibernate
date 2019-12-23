@@ -6,10 +6,6 @@ import dao.UserDaoImplJDBC;
 
 public class UserDaoFactory {
     private static UserDaoFactory userDaoFactory;
-    private DBHelper dbHelper = DBHelper.getInstance();
-    private UserDaoImplHib userDaoImplHib = new UserDaoImplHib(dbHelper.getSessionFactory());
-    private UserDaoImplJDBC userDaoImplJDBC = new UserDaoImplJDBC();
-    private PropertyReader propReader = new PropertyReader("DB.property");
 
     private UserDaoFactory() {}
 
@@ -21,7 +17,12 @@ public class UserDaoFactory {
     }
 
     public UserDao getUserDao() {
-        String str = propReader.getProperty("db.type");
+        DBHelper dbHelper = DBHelper.getInstance();
+//        PropertyReader propReader = new PropertyReader("DB.property");
+        UserDaoImplHib userDaoImplHib = new UserDaoImplHib(dbHelper.getSessionFactory());
+        UserDaoImplJDBC userDaoImplJDBC = new UserDaoImplJDBC();
+
+        String str = PropertyReader.getProperty("db.type", "DB.property");
         if (str.equals("Hibernate")) {
             return userDaoImplHib;
         }else {
