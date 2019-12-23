@@ -7,14 +7,13 @@ import java.util.Properties;
 public class PropertyReader {
     private static Properties properties;
     private static InputStreamReader in;
+    private static String propertyFileName = "DB.property";
 
-    public PropertyReader() {}
-
-    public static String getProperty(String property, String propertyFileName) {
-        properties = new Properties();
+    static {
         in = new InputStreamReader(Objects.requireNonNull(PropertyReader.class
                 .getClassLoader()
                 .getResourceAsStream(propertyFileName)));
+        properties = new Properties();
 
         try {
             properties.load(in);
@@ -28,6 +27,11 @@ public class PropertyReader {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public PropertyReader() {}
+
+    public static String getProperty(String property) {
         return properties.getProperty(property);
     }
 }

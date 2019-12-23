@@ -18,11 +18,10 @@ public class UserDaoFactory {
 
     public UserDao getUserDao() {
         DBHelper dbHelper = DBHelper.getInstance();
-//        PropertyReader propReader = new PropertyReader("DB.property");
         UserDaoImplHib userDaoImplHib = new UserDaoImplHib(dbHelper.getSessionFactory());
         UserDaoImplJDBC userDaoImplJDBC = new UserDaoImplJDBC();
 
-        String str = PropertyReader.getProperty("db.type", "DB.property");
+        String str = PropertyReader.getProperty("db.type");
         if (str.equals("Hibernate")) {
             return userDaoImplHib;
         }else {

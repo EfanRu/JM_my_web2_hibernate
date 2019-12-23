@@ -1,5 +1,7 @@
 package servlet;
 
+import util.AppUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import java.io.IOException;
 public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", AppUtil.getLoginedUser(req.getSession()));
         resp.setStatus(200);
         req.getRequestDispatcher("/user.jsp").forward(req, resp);
     }

@@ -12,14 +12,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBHelper {
-//    private static PropertyReader propertyReader = new PropertyReader("DB.property");
     private static SessionFactory sessionFactory;
     private static DBHelper instance;
-    private static String host = PropertyReader.getProperty("db.host", "DB.property");
-    private static String port = PropertyReader.getProperty("db.port", "DB.property");
-    private static String name = PropertyReader.getProperty("db.name", "DB.property");
-    private static String login = PropertyReader.getProperty("db.login", "DB.property");
-    private static String password = PropertyReader.getProperty("db.password", "DB.property");
+    private static String host = PropertyReader.getProperty("db.host");
+    private static String port = PropertyReader.getProperty("db.port");
+    private static String name = PropertyReader.getProperty("db.name");
+    private static String login = PropertyReader.getProperty("db.login");
+    private static String password = PropertyReader.getProperty("db.password");
 
 
     private DBHelper() {}
