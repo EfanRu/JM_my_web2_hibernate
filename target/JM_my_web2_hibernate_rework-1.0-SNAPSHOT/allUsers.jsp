@@ -22,6 +22,8 @@
                   <td>Password</td>
                   <td>Phone number</td>
                   <td>Role</td>
+                  <td>Edit</td>
+                  <td>Remove</td>
               </tr>
                   <c:forEach var="user" items="${listUser}">
               <tr>
@@ -32,6 +34,11 @@
                       <td>${user.getPassword()}</td>
                       <td>${user.getPhoneNumber()}</td>
                       <td>${user.getRole()}</td>
+                  <td>
+      <form action="/admin/delete" method="post">
+      <input type="submit" name="${user.getId()}" value="Del">
+      </form>
+                </td>
               </tr>
                   </c:forEach>
           </table>

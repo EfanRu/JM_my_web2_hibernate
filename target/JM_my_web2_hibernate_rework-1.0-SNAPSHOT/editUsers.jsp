@@ -39,14 +39,6 @@
         </p>
         <input type="submit" value="Submit">
     </form>
-    <br>
-    <p>Delete user<br>
-    <form action="/admin/delete" method="post">
-        <p>Write id of user for delete:<br>
-            <input type="text" name="id">
-        </p>
-        <input type="submit" value="Submit">
-    </form>
 
     <form action="/logout" method="get">
         <input type="submit" value="Log out">
