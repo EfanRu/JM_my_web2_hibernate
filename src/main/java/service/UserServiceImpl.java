@@ -1,10 +1,6 @@
 package service;
 
-import dao.UserDao;
-import dao.UserDaoImplHib;
 import model.User;
-import org.hibernate.SessionFactory;
-import util.DBHelper;
 import util.UserDaoFactory;
 
 import java.util.List;

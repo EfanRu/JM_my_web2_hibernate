@@ -22,11 +22,9 @@ public class SecurityConfig {
 
         mapConfig.put(ROLE_ADMIN, urlPatternsAdmin);
 
-        // Конфигурация для роли "MANAGER".
         List<String> urlPatternsUser = new ArrayList<String>();
 
-        urlPatternsUser.add("/authorization");
-        urlPatternsUser.add("/user");
+        urlPatternsUser.add("/user.jsp");
 
         mapConfig.put(ROLE_USER, urlPatternsUser);
     }

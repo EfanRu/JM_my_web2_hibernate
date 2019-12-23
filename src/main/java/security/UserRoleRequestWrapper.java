@@ -3,7 +3,6 @@ package security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.security.Principal;
-import java.util.List;
 
 public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
     private String user;
