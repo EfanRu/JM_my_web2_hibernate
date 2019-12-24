@@ -34,11 +34,17 @@
                       <td>${user.getPassword()}</td>
                       <td>${user.getPhoneNumber()}</td>
                       <td>${user.getRole()}</td>
-                  <td>
-      <form action="/admin/delete" method="post">
-      <input type="submit" name="${user.getId()}" value="Del">
-      </form>
-                </td>
+                      <td>
+                          <form action="/admin/edit" method="get">
+                              <button type="submit" name="id" value="${user.getId()}">Edit</button>
+                          </form>
+                      </td>
+                      <td>
+                          <form action="/admin/delete" method="post">
+                              <button type="submit" name="id" value="${user.getId()}">Del</button>
+                          </form>
+                      </td>
+
               </tr>
                   </c:forEach>
           </table>
@@ -65,17 +71,19 @@
           </p>
           </p>
           <p>Password<br>
-              <input type="text" name="password">
+              <input type="password" name="password">
           </p>
           <input type="submit" value="Submit">
       </form>
   </body>
 
+<%--
   <body>
   <p>Edit and delete user:
       <form action="/admin/edit" method="GET">
           <input type="submit" value="Edit or delete user">
       </form>
+--%>
 
 
     <form action="/logout" method="get">

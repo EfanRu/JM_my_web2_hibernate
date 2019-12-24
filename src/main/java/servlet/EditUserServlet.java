@@ -17,7 +17,7 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setStatus(200);
-        req.setAttribute("loginedUser", req.getAttribute("loginedUser"));
+        req.setAttribute("id", req.getParameter("id"));
         req.getRequestDispatcher("/editUsers.jsp").forward(req, resp);
     }
 
