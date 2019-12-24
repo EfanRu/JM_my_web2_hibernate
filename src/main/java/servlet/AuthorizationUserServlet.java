@@ -4,7 +4,6 @@ import model.User;
 import service.UserServiceImpl;
 import util.AppUtil;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,19 +27,23 @@ public class AuthorizationUserServlet extends HttpServlet {
             if (user == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 req.getRequestDispatcher("/login").forward(req, resp);
+                return;
             } else if (user.getRole().equalsIgnoreCase("admin")) {
-                resp.setStatus(200);
                 req.getRequestDispatcher("/admin/all").forward(req, resp);
             } else if (user.getRole().equalsIgnoreCase("user")) {
-                resp.setStatus(200);
                 req.getRequestDispatcher("/user").forward(req, resp);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                req.getRequestDispatcher("/login").forward(req, resp);
+                return;
             }
         }
+        resp.setStatus(200);
+        AppUtil.storeLoggedUser(req.getSession(),user);
 
 
 //        return;
 //
-        AppUtil.storeLoggedUser(req.getSession(),user);
 //
 //        int redirectId = -1;
 //        try {

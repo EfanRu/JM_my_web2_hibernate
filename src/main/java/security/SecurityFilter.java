@@ -17,6 +17,8 @@ public class SecurityFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         UserServiceImpl.getInstance().addUser(new User("Admin", "Root", "admin", "admin", 0l, "admin"));
+        UserServiceImpl.getInstance().addUser(new User("User_1", "Test", "user", "user", 0l, "user"));
+        UserServiceImpl.getInstance().addUser(new User("User_2", "Test", "user2", "user2", 0l, "user"));
     }
 
     @Override
@@ -42,21 +44,19 @@ public class SecurityFilter implements Filter {
         HttpServletRequest wrapRequest = req;
 
         if (loginedUser != null) {
-            String userLogin = loginedUser.getLogin();
             String role = loginedUser.getRole();
-            wrapRequest = new UserRoleRequestWrapper(userLogin, role, req);
+            wrapRequest = new UserRoleRequestWrapper(role, req);
         }
 
         if (SecurityUtils.isSecurityPage(req)) {
             if (loginedUser == null) {
-                resp.sendRedirect(wrapRequest.getContextPath() + "/");
+                resp.sendRedirect( "/login");
                 return;
             }
 
             boolean hasPermission = SecurityUtils.hasPermission(wrapRequest);
             if (!hasPermission) {
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/authorization");
-                dispatcher.forward(request, response);
+                resp.sendRedirect( "/login");
                 return;
             }
         }
