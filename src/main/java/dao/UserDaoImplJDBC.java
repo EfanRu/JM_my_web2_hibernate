@@ -164,9 +164,10 @@ public class UserDaoImplJDBC implements UserDao {
         }
 
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            con.setAutoCommit(false);
             pstmt.setString(1, login);
             pstmt.setString(2, password);
-            ResultSet rs = pstmt.getResultSet();
+            ResultSet rs = pstmt.executeQuery();
             if (rs != null && rs.next()) {
                 user = new User(rs.getLong(1),
                         rs.getString(2),
@@ -178,8 +179,14 @@ public class UserDaoImplJDBC implements UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                con.setAutoCommit(true);
+                con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
-        System.out.println(user);
         return user;
     }
 

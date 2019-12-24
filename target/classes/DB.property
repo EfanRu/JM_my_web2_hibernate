@@ -1,4 +1,4 @@
-db.type = Hibernate
+db.type = JDBC
 db.host = localhost
 db.port = 3306
 db.name = test?
