@@ -15,6 +15,5 @@ public interface UserDao {
     boolean delUser(String id);
     boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password);
     User checkAuth(String login, String password);
-    void createTable();
     void dropTable();
 }

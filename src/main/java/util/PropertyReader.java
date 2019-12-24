@@ -7,12 +7,12 @@ import java.util.Properties;
 public class PropertyReader {
     private static Properties properties;
     private static InputStreamReader in;
-    private static String propertyFileName = "DB.property";
+    private static String propertiesFileName = "DB.properties";
 
     static {
         in = new InputStreamReader(Objects.requireNonNull(PropertyReader.class
                 .getClassLoader()
-                .getResourceAsStream(propertyFileName)));
+                .getResourceAsStream(propertiesFileName)));
         properties = new Properties();
 
         try {

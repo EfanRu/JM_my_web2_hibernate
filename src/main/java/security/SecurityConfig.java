@@ -1,10 +1,12 @@
 package security;
 
+import util.PropertyReader;
+
 import java.util.*;
 
 public class SecurityConfig {
-    public static final String ROLE_ADMIN = "admin";
-    public static final String ROLE_USER = "user";
+    public static final String ROLE_ADMIN = PropertyReader.getProperty("sf.roleAdmin");
+    public static final String ROLE_USER = PropertyReader.getProperty("sf.roleUser");
 
     private static final Map<String, List<String>> mapConfig = new HashMap<>();
 

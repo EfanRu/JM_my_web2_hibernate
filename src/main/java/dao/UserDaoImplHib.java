@@ -4,36 +4,37 @@ import com.sun.istack.Nullable;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImplHib implements UserDao {
-    private Session sess;
-    private SessionFactory sessFact;
+    private Session session;
+    private SessionFactory sessionFactory;
+    private Transaction transaction = session.getTransaction();
 
     public UserDaoImplHib(SessionFactory sessionFactory) {
-        this.sessFact = sessionFactory;
+        this.sessionFactory = sessionFactory;
     }
 
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
 
-        if (sessFact == null) {
+        if (sessionFactory == null) {
             return result;
         }
 
         try {
-            sess = sessFact.openSession();
-            sess.beginTransaction();
-            result = sess.createQuery("FROM User", User.class).list();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            result = session.createQuery("FROM User", User.class).list();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
-            if (sess != null) {
+            if (session != null) {
                 try {
-                    sess.close();
+                    session.close();
                 } catch (RuntimeException ex) {
                     ex.printStackTrace();
                 }
@@ -43,25 +44,25 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public boolean addUser(User u) {
-        if (sessFact == null) {
+        if (sessionFactory == null) {
             return false;
         }
 
         try {
-            sess = sessFact.openSession();
-            sess.beginTransaction();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
             if (u != null) {
-                sess.save(u);
+                session.save(u);
             }
-            sess.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            sess.getTransaction().rollback();
+            transaction.rollback();
         } finally {
-            if (sess != null) {
+            if (session != null) {
                 try {
-                    sess.close();
+                    session.close();
                 } catch (RuntimeException ex) {
                     ex.printStackTrace();
                 }
@@ -71,25 +72,25 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public boolean delUser(String id) {
-        if (sessFact == null) {
+        if (sessionFactory == null) {
             return false;
         }
 
         try {
-            sess = sessFact.openSession();
-            sess.beginTransaction();
-            sess.createQuery("DELETE FROM User WHERE id=:id")
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.createQuery("DELETE FROM User WHERE id=:id")
                 .setParameter("id", Long.parseLong(id))
                 .executeUpdate();
-            sess.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (RuntimeException e) {
-            sess.getTransaction().rollback();
+            transaction.rollback();
             e.printStackTrace();
         } finally {
-            if (sess != null) {
+            if (session != null) {
                 try {
-                    sess.close();
+                    session.close();
                 } catch (RuntimeException ex) {
                     ex.printStackTrace();
                 }
@@ -99,14 +100,14 @@ public class UserDaoImplHib implements UserDao {
     }
 
     public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password) {
-        if (sessFact == null) {
+        if (sessionFactory == null) {
             return false;
         }
 
         try {
-            sess = sessFact.openSession();
-            sess.beginTransaction();
-            sess.createQuery("UPDATE User SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber, role = :role, login = :login, password = :password where id=:id")
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.createQuery("UPDATE User SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber, role = :role, login = :login, password = :password where id=:id")
                     .setParameter("id", Long.parseLong(id))
                     .setParameter("firstName", firstName)
                     .setParameter("lastName", lastName)
@@ -115,15 +116,15 @@ public class UserDaoImplHib implements UserDao {
                     .setParameter("login", login)
                     .setParameter("password", password)
                     .executeUpdate();
-            sess.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            sess.getTransaction().rollback();
+            transaction.rollback();
         } finally {
-            if (sess != null) {
+            if (session != null) {
                 try {
-                    sess.close();
+                    session.close();
                 } catch (RuntimeException ex) {
                     ex.printStackTrace();
                 }
@@ -136,24 +137,24 @@ public class UserDaoImplHib implements UserDao {
     public User checkAuth(String login, String password) {
         User user = null;
 
-        if (sessFact == null) {
+        if (sessionFactory == null) {
             return user;
         }
 
         try {
-            sess = sessFact.openSession();
-            sess.beginTransaction();
-            user = (User) sess.createQuery("FROM User WHERE login = :login and password = :password")
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            user = (User) session.createQuery("FROM User WHERE login = :login and password = :password")
                     .setParameter("login", login)
                     .setParameter("password", password)
                     .uniqueResult();
-            sess.getTransaction().commit();
+            transaction.commit();
         } catch(RuntimeException e) {
             e.printStackTrace();
         } finally {
-            if (sess != null) {
+            if (session != null) {
                 try {
-                    sess.close();
+                    session.close();
                 } catch (RuntimeException ex) {
                     ex.printStackTrace();
                 }
@@ -162,44 +163,21 @@ public class UserDaoImplHib implements UserDao {
         return user;
     }
 
-        public void createTable() {
-        if (sessFact != null) {
-        try {
-                sess = sessFact.openSession();
-                sess.beginTransaction();
-                sess.createQuery("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128), login varchar(128), password varchar(128) primary key (id))")
-                        .executeUpdate();
-                sess.getTransaction().commit();
-            } catch (RuntimeException e) {
-                sess.getTransaction().rollback();
-                e.printStackTrace();
-            } finally {
-                if (sess != null) {
-                    try {
-                        sess.close();
-                    } catch (RuntimeException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
     public void dropTable() {
-        if (sessFact != null) {
+        if (sessionFactory != null) {
             try {
-                sess = sessFact.openSession();
-                sess.beginTransaction();
-                sess.createQuery("DROP TABLE if EXISTS user")
+                session = sessionFactory.openSession();
+                session.beginTransaction();
+                session.createQuery("DROP TABLE if EXISTS user")
                         .executeUpdate();
-                sess.getTransaction().commit();
+                transaction.commit();
             } catch (RuntimeException e) {
-                sess.getTransaction().rollback();
+                transaction.rollback();
                 e.printStackTrace();
             } finally {
-                if (sess != null) {
+                if (session != null) {
                     try {
-                        sess.close();
+                        session.close();
                     } catch (RuntimeException ex) {
                         ex.printStackTrace();
                     }

@@ -2,7 +2,6 @@ package dao;
 
 import com.sun.istack.Nullable;
 import model.User;
-import org.hibernate.Session;
 import util.DBHelper;
 
 import java.sql.*;
@@ -10,20 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImplJDBC implements UserDao {
-    private Connection con;
+    private Connection connection;
 
     public UserDaoImplJDBC() {}
 
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
-        con = DBHelper.getInstance().getConnection();
+        connection = DBHelper.getInstance().getConnection();
 
-        if (con == null) {
+        if (connection == null) {
             return result;
         }
 
-        try (Statement stmt = con.createStatement()) {
-            con.setAutoCommit(false);
+        try (Statement stmt = connection.createStatement()) {
+            connection.setAutoCommit(false);
             stmt.execute("SELECT * FROM user");
             ResultSet rs = stmt.getResultSet();
             while (rs.next()) {
@@ -39,8 +38,8 @@ public class UserDaoImplJDBC implements UserDao {
             e.printStackTrace();
         } finally {
             try {
-                con.setAutoCommit(true);
-                con.close();
+                connection.setAutoCommit(true);
+                connection.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -50,14 +49,14 @@ public class UserDaoImplJDBC implements UserDao {
 
     public boolean addUser(User u) {
         String sql = "INSERT INTO user VALUES(null, ?, ?, ?, ?, ?, ?)";
-        con = DBHelper.getInstance().getConnection();
+        connection = DBHelper.getInstance().getConnection();
 
-        if (con == null) {
+        if (connection == null) {
             return false;
         }
 
-        try (PreparedStatement pstmt = con.prepareStatement(sql)){
-            con.setAutoCommit(false);
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+            connection.setAutoCommit(false);
             pstmt.setString(1, u.getFirstName());
             pstmt.setString(2, u.getLastName());
             pstmt.setString(3, u.getLogin());
@@ -68,7 +67,7 @@ public class UserDaoImplJDBC implements UserDao {
             return true;
         } catch (SQLException e) {
             try {
-                con.rollback();
+                connection.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -76,8 +75,8 @@ public class UserDaoImplJDBC implements UserDao {
             return false;
         } finally {
             try {
-                con.setAutoCommit(true);
-                con.close();
+                connection.setAutoCommit(true);
+                connection.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -86,20 +85,20 @@ public class UserDaoImplJDBC implements UserDao {
 
     public boolean delUser(String id) {
         String sql = "DELETE FROM user WHERE id=?";
-        con = DBHelper.getInstance().getConnection();
+        connection = DBHelper.getInstance().getConnection();
 
-        if (con == null) {
+        if (connection == null) {
             return false;
         }
 
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            con.setAutoCommit(false);
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             pstmt.setLong(1, Long.parseLong(id));
             pstmt.execute();
             return true;
         } catch (SQLException | NumberFormatException e) {
             try {
-                con.rollback();
+                connection.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -107,8 +106,8 @@ public class UserDaoImplJDBC implements UserDao {
             return false;
         } finally {
             try {
-                con.setAutoCommit(true);
-                con.close();
+                connection.setAutoCommit(true);
+                connection.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -117,14 +116,14 @@ public class UserDaoImplJDBC implements UserDao {
 
     public boolean updateUser(String id, String firstName, String lastName, String phoneNumber, String role, String login, String password) {
         String sql = "UPDATE user SET first_name = ?, last_name = ?, phone_number = ?, role = ?, login = ?, password = ? where id=?";
-        con = DBHelper.getInstance().getConnection();
+        connection = DBHelper.getInstance().getConnection();
 
-        if (con == null) {
+        if (connection == null) {
             return false;
         }
 
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            con.setAutoCommit(false);
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             pstmt.setString(1, firstName);
             pstmt.setString(2, lastName);
             pstmt.setLong(3, Long.parseLong(phoneNumber));
@@ -136,8 +135,8 @@ public class UserDaoImplJDBC implements UserDao {
             return true;
         } catch (SQLException e) {
             try {
-                con.rollback();
-                con.close();
+                connection.rollback();
+                connection.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -145,7 +144,7 @@ public class UserDaoImplJDBC implements UserDao {
             return false;
         } finally {
             try {
-                con.setAutoCommit(true);
+                connection.setAutoCommit(true);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -157,14 +156,14 @@ public class UserDaoImplJDBC implements UserDao {
     public User checkAuth(String login, String password) {
         User user = null;
         String sql = "SELECT * FROM user WHERE login=? and password=?";
-        con = DBHelper.getInstance().getConnection();
+        connection = DBHelper.getInstance().getConnection();
 
-        if (con == null) {
+        if (connection == null) {
             return user;
         }
 
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            con.setAutoCommit(false);
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             pstmt.setString(1, login);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
@@ -181,8 +180,8 @@ public class UserDaoImplJDBC implements UserDao {
             e.printStackTrace();
         } finally {
             try {
-                con.setAutoCommit(true);
-                con.close();
+                connection.setAutoCommit(true);
+                connection.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -191,20 +190,20 @@ public class UserDaoImplJDBC implements UserDao {
     }
 
     public void createTable() {
-        con = DBHelper.getInstance().getConnection();
-        try (Statement stmt = con.createStatement()) {
+        connection = DBHelper.getInstance().getConnection();
+        try (Statement stmt = connection.createStatement()) {
             stmt.execute("CREATE TABLE if NOT EXISTS user (id bigint auto_increment, first_name varchar(256), last_name varchar(256), phone_number bigint, role varchar(128), login varchar(128), password varchar(128), primary key (id))");
-            con.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void dropTable() {
-        con = DBHelper.getInstance().getConnection();
-        try (Statement stmt = con.createStatement()) {
+        connection = DBHelper.getInstance().getConnection();
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DROP TABLE if EXISTS user");
-            con.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
